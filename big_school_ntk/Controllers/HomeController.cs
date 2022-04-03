@@ -20,6 +20,11 @@ namespace big_school_ntk.Controllers
                 .Include(c => c.Lecturer)
                 .Include(c => c.Category)
                 .Where(c => c.DateTime > DateTime.Now);
+            var viewModel = new CoursesViewModel
+            {
+                upcommingCourses = upcommingCourses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
             return View(upcommingCourses);
         }
 

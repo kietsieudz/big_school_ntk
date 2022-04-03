@@ -34,10 +34,47 @@
                     <span class="lecturer">
                         @course.Category.Name
                     </span>
+                    <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button> 
                 </div>
             </li>
         }
+        <div class="details">
+            <span class="lecturer">
+                @course.Lecturer.Name
+                @if ( Model.ShowAction)
+            {
+                <button class="btn btn-link btn-sm js-toggle-attendance"></button>
+            }
+            </span>
+            <span class="category">
+                @course.Category.Name
+            </span>
+            @if (Model.ShowAction)
+            {
+                <button data-course-id="@course.Id" class="btn"
+            }
+        </div>
 
     </ul>
+    @section scripts
+    {
+        <script>
+            $(document).ready(function () {
+                $(".js-toggle-attendance").click(function (e) {
+                    var button = $0.target);
+            $.post("/api/attendances", { courseId: button.attr("data-course-id") })
+                .done(function () {
+                    button
+                        .removeClass("btn-default")
+                        .addClass("btn-info")
+                        .text("Going");
+                })
+                .fail(function () {
+                    alert("Something failed!");
+                });
+         });
+            });
+        </script>
+}
    
 </div>
